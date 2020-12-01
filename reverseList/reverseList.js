@@ -26,24 +26,32 @@ Output: 5->4->3->2->1->NULL
  * }
 */
 
-let Node = function ( value, next ) {
-  this.value = null;
-  this.next = null;
+const Node = function ( value = null, next = null ) {
+  this.value = value;
+  this.next = next;
 }
 
-Node.prototype.addToHead = function ( value ) {
-  let tmp = this.head || null;
-  this.head = new Node( value, tmp );
-  this.tail = this.tail || this.head;
+const LL = function () {
+  this.head = null;
+  this.tail = null;
 }
-Node.prototype.addToTail = function ( value ) {
-  this.tail = new Node( value, null );
-  this.head = this.head || this.tail;
+
+LL.prototype.addToHead = function ( value ) {
+  let tmp = this.head || null;
+  let node = new Node( value, tmp );
+  this.head = node;
+  this.tail = this.tail || node;
+}
+LL.prototype.addToTail = function ( value ) {
+  let node = new Node( value );
+  this.tail.next = node;
+  this.tail = node;
+  this.head = this.head || node;
 }
 
 var reverseList = function(head) {
   let newList = (function ( node ) {
-    let list = new Node(); // { value = null; next = null; }
+    let list = new LL(); // { value = null; next = null; }
     while ( node.next !== null ) {
       list.addToHead( node.value );
       node = node.next;
@@ -54,3 +62,11 @@ var reverseList = function(head) {
   return newList; // returns the list returned in the IIFY
 };
 
+let ll = new LL();
+ll.addToHead(1);
+ll.addToTail(2);
+ll.addToTail(3);
+ll.addToTail(4);
+ll.addToTail(5);
+ll = reverseList( ll.head );
+console.log(ll);
