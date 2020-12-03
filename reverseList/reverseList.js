@@ -34,6 +34,7 @@ const Node = function ( value = null, next = null ) {
 const LL = function () {
   this.head = null;
   this.tail = null;
+
 }
 
 LL.prototype.addToHead = function ( value ) {
