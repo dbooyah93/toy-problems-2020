@@ -13,5 +13,19 @@
 // Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
 
 var canJump = function(nums) {
-
+  const hop = function ( arr ) {
+    if ( arr.length === 1 ) {
+      return true;
+    } else {
+      for ( let i = 1; i <= arr[0]; i++ ) { // itteratting over current hop
+        return hop( arr.slice( i ) ); // recursive call
+      }
+    }
+    return false;
+  }
+  return hop( nums );
 };
+
+
+let test = [3,2,1,0,4];
+console.log( canJump( test ) );
